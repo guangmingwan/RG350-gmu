@@ -83,7 +83,7 @@ LFLAGS+=$(LFLAGS_SDLFE)
 endif
 
 # Frontend configs
-PLUGIN_FE_SDL_OBJECTFILES=sdl.o core.o fmath.o dir.o eventqueue.o feloader.o fileplayer.o m3u.o reader.o pls.o playlist.o hw_$(TARGET).o util.o ringbuffer.o audio.o wejpconfig.o charset.o decloader.o trackinfo.o debug.o kam.o skin.o textrenderer.o question.o filebrowser.o plbrowser.o about.o textbrowser.o coverimg.o coverviewer.o plmanager.o playerdisplay.o gmuwidget.o png.o jpeg.o bmp.o inputconfig.o help.o -lSDL_image
+PLUGIN_FE_SDL_OBJECTFILES=sdl.o core.o fmath.o dir.o eventqueue.o feloader.o fileplayer.o m3u.o reader.o pls.o playlist.o hw_$(TARGET).o util.o ringbuffer.o audio.o wejpconfig.o charset.o decloader.o trackinfo.o debug.o kam.o skin.o textrenderer.o question.o filebrowser.o plbrowser.o about.o textbrowser.o coverimg.o coverviewer.o plmanager.o playerdisplay.o gmuwidget.o png.o jpeg.o bmp.o inputconfig.o help.o 
 PLUGIN_FE_HTTP_OBJECTFILES=gmuhttp.o sha1.o base64.o httpd.o queue.o json.o websocket.o net.o
 
 # Decoder configs
