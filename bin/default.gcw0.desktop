@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=GMU
+Comment=The Gmu Music Player
+Exec=gmu.dge
+Terminal=false
+Type=Application
+StartupNotify=true
+Icon=gmu_icon
+Categories=emulators;
