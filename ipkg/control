@@ -1,10 +1,10 @@
 Package: gmu
-Version: 20190202
+Version: 20190923
 Description: gmu
 Section: apps
 Priority: optional
 Maintainer: jbanes
 Architecture: mipsel
-Homepage: https://github.com/jbanes/rs97-commander
+Homepage: https://github.com/guangmingwan/RG350-gmu/
 Depends:
-Source: https://github.com/jbanes/rs97-commander
+Source: https://github.com/guangmingwan/RG350-gmu/
