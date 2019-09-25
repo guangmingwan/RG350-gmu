@@ -5,5 +5,5 @@ Exec=gmu.dge
 Terminal=false
 Type=Application
 StartupNotify=true
-Icon=gmu_icon
+Icon=gmu
 Categories=emulators;

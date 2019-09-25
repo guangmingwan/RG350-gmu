@@ -36,6 +36,7 @@
 #include "util.h"
 #include "reader.h" /* for reader_set_cache_size_kb() */
 #include "debug.h"
+
 #define MAX_FILE_EXTENSIONS 255
 
 typedef enum GlobalCommand { NO_CMD, PLAY, PAUSE, STOP, NEXT, 
@@ -1169,7 +1170,8 @@ int main(int argc, char **argv)
 
 	if (strncmp(cfg_get_key_value(config, "RememberLastPlaylist"), "yes", 3) == 0) {
 		wdprintf(V_INFO, "gmu", "Saving playlist...\n");
-		snprintf(temp, 255, "%s/playlist.m3u", config_dir);
+		
+		snprintf(temp, 255, "%s", cfg_get_path_to_config_file("playlist.m3u"));
 		wdprintf(V_INFO, "gmu", "Playlist file: %s\n", temp);
 		gmu_core_export_playlist(temp);
 		disksync = 1;
