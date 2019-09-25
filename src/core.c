@@ -708,7 +708,10 @@ static int init_user_config_dir(char *user_config_dir, char *sys_config_dir, cha
 		}
 		snprintf(target, 383, "%s/%s", user_config_dir, filename);
 		if (!file_exists(target)) {
+			
 			wdprintf(V_INFO, "gmu", "Copying file: %s\n", filename);
+
+			printf(  "%s/%s", sys_config_dir, filename );
 			snprintf(source, 383, "%s/%s", sys_config_dir, filename);
 			file_copy(target, source);
 		}
@@ -906,20 +909,28 @@ int main(int argc, char **argv)
 #endif
 
 	config_dir = sys_config_dir;
+	
 	if (user_config_dir[0] == '1') {
+		printf("init user config dir\n");
 		if (init_user_config_dir(user_config_dir, sys_config_dir, config_file)) {
 			/* Set config_dir to the user config directory */
 			config_dir = user_config_dir;
 		}
 	}
+	
+	
+	
 
 	if (config_file[0] != '/') { /* Relative path to config file given? */
-		config_file_path = alloca(strlen(base_dir)+strlen(config_file)+2);
+		printf("not start with /\n");
+		config_file_path = alloca(strlen(config_dir)+strlen(config_file)+2);
+		printf("%s || %s\n", config_dir, config_file);
+		printf("config_file_path alloc memory %d\n",strlen(base_dir)+strlen(config_file)+2);
 		snprintf(config_file_path, 255, "%s/%s", config_dir, config_file);
 	} else {
 		config_file_path = config_file;
 	}
-
+	printf("config_file:%s\n",config_file_path);
 	wdprintf(V_INFO, "gmu", "Base directory: %s\n", base_dir);
 	wdprintf(V_INFO, "gmu", "System config directory: %s\n", sys_config_dir);
 
@@ -1171,7 +1182,7 @@ int main(int argc, char **argv)
 	if (strncmp(cfg_get_key_value(config, "RememberLastPlaylist"), "yes", 3) == 0) {
 		wdprintf(V_INFO, "gmu", "Saving playlist...\n");
 		
-		snprintf(temp, 255, "%s", cfg_get_path_to_config_file("playlist.m3u"));
+		snprintf(temp, 255, "%s", cfg_get_path_to_config_file(".gmu/playlist.m3u"));
 		wdprintf(V_INFO, "gmu", "Playlist file: %s\n", temp);
 		gmu_core_export_playlist(temp);
 		disksync = 1;
