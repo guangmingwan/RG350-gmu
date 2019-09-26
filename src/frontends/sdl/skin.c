@@ -175,12 +175,13 @@ static int skin_config_load(Skin *skin, char *skin_name)
 				val = cfg_get_key_value(skinconf, "Font2CharHeight");
 				if (val) skin->font2_char_height = atoi(val);
 				result = 1;
-
+				
 				/* load images (symbols, arrows) */
 				{
 					char         tmp[256];
 					SDL_Surface *tmp_sf;
 				
+					wdprintf(V_DEBUG, "skin", "Loading images (symbols, arrows)...\n");
 					val = cfg_get_key_value(skinconf, "Display.Symbols");
 					if (val) {
 						snprintf(tmp, 255, "%s/themes/%s/%s", gmu_core_get_base_dir(), skin->name, val);
@@ -206,7 +207,7 @@ static int skin_config_load(Skin *skin, char *skin_name)
 						}
 					}
 				}
-
+				
 				/* fonts */
 				{
 					int  a, b, c;
@@ -230,6 +231,7 @@ static int skin_config_load(Skin *skin, char *skin_name)
 					c = textrenderer_init(&skin->font2, tmp,
 					                      skin->font2_char_width, skin->font2_char_height,1);
 					
+					wdprintf(V_INFO, "skin", "loading result:%d,%d,%d\n",a,b,c);
 					if (a && b && c)
 						wdprintf(V_INFO, "skin", "skin: Skin data loaded successfully.\n");
 					else
@@ -243,6 +245,7 @@ static int skin_config_load(Skin *skin, char *skin_name)
 		}
 	}
 	cfg_free_config_file_struct(&skinconf);
+	printf("result:%d\n",result);
 	return result;
 }
 
@@ -326,24 +329,9 @@ static void skin_update_widget(Skin *skin, GmuWidget *gw, SDL_Surface *display, 
 	drect.x = srect.x;
 	drect.y = srect.y;
 	SDL_BlitSurface(buffer, &srect, display, &drect);
-	if(strstr(code, "unknown")) {
-		SDL_UpdateRects(display, 1, &drect);
-		SDL_SoftStretch(display, NULL, ScreenSurface, NULL);
-	}
-	else {
-		if(SDL_MUSTLOCK(ScreenSurface)) SDL_LockSurface(ScreenSurface);
-		int x, y;
-		uint32_t *s = (uint32_t*)display->pixels;
-		uint32_t *d = (uint32_t*)ScreenSurface->pixels;
-		for(y=0; y<240; y++){
-			for(x=0; x<160; x++){
-			*d++ = *s++;
-			}
-			d+= 160;
-		}
-		if(SDL_MUSTLOCK(ScreenSurface)) SDL_UnlockSurface(ScreenSurface);
-		SDL_Flip(ScreenSurface);
-	}
+	SDL_SoftStretch(display, NULL, ScreenSurface, NULL);
+	SDL_UpdateRects(ScreenSurface, 1, &drect);
+	
 }
 
 void skin_update_display(Skin *skin, SDL_Surface *display, SDL_Surface *buffer)
@@ -388,6 +376,7 @@ void skin_draw_footer_bg(Skin *skin, SDL_Surface *buffer)
 
 void skin_update_bg(Skin *skin, SDL_Surface *display, SDL_Surface *buffer)
 {
+	return;
 	SDL_BlitSurface(buffer, NULL, display, NULL);
 	
 	if(strstr(code, "unknown")) {

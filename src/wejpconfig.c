@@ -180,8 +180,10 @@ int cfg_read_config_file(ConfigFile *cf, char *filename)
 			}
 			value_buffer[bufcnt] = '\0';
 
-			if (strlen(key_buffer) > 0)
+			if (strlen(key_buffer) > 0) {
+				printf("add k,v [%s]=>[%s]\n",key_buffer, value_buffer);
 				result = cfg_add_key(cf, key_buffer, value_buffer);
+			}
 		}
 		fclose(file);
 	} else {
@@ -228,7 +230,7 @@ char *cfg_get_key_value(ConfigFile cf, char *key)
 			result = cf.value[i];
 			break;
 		}
-	/*printf("wejpconfig: cfg_get_key_value: %s => %s.\n", key , result);*/
+	printf("wejpconfig: cfg_get_key_value: %s => %s.\n", key , result);
 	return result;
 }
 

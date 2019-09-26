@@ -1181,8 +1181,8 @@ int main(int argc, char **argv)
 
 	if (strncmp(cfg_get_key_value(config, "RememberLastPlaylist"), "yes", 3) == 0) {
 		wdprintf(V_INFO, "gmu", "Saving playlist...\n");
-		
-		snprintf(temp, 255, "%s", cfg_get_path_to_config_file(".gmu/playlist.m3u"));
+		snprintf(temp, 255, "%s/playlist.m3u", config_dir);
+		//snprintf(temp, 255, "%s", cfg_get_path_to_config_file(".gmu/playlist.m3u"));
 		wdprintf(V_INFO, "gmu", "Playlist file: %s\n", temp);
 		gmu_core_export_playlist(temp);
 		disksync = 1;

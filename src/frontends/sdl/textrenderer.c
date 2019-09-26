@@ -20,6 +20,7 @@
 #include "charset.h"
 #include "iconv.h"
 #include "hzk12.h"
+#include "debug.h"
 //type 0 font1, 1 font2 3 font_dispalyer
 int textrenderer_init(TextRenderer *tr, char *chars_file, int chwidth, int chheight,int type)
 {
@@ -51,7 +52,13 @@ int textrenderer_init(TextRenderer *tr, char *chars_file, int chwidth, int chhei
 			}
 			result = 1;
 		}
+		else {
+			wdprintf(V_ERROR, "skin", "SDL_DisplayFormatAlpha failed: %s\n", SDL_GetError());
+		}
 		SDL_FreeSurface(tmp);
+	}
+	else {
+		wdprintf(V_ERROR, "skin", "Loading font file fail %s\n", tmp);
 	}
 	return result;
 }

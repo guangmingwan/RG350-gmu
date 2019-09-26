@@ -4,4 +4,4 @@ dirname=`dirname $0`
 echo directory:$dirname
 export SDL_NOMOUSE=1
 export LD_LIBRARY_PATH=${dirname}/libs.dingux
-./gmu.bin -e
+./gmu.bin -v 5 -e
